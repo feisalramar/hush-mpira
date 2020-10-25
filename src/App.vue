@@ -9,6 +9,18 @@
 </template>
 
 <style lang="scss">
+html{
+  padding: 0px;
+}
+
+body{
+  padding: 0px;
+  margin: 0px;
+  background: linear-gradient( #E9E4F0, #D3CCE3);
+  height: 100vh;
+  width: 100 vw;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -17,16 +29,4 @@
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
 </style>
