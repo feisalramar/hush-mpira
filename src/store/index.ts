@@ -28,7 +28,7 @@ export default new Vuex.Store({
         "Egypt",
         "Algeria",
       ],
-      othersCountry: [
+      otherCountry: [
         "Brazil",
         "Argentina",
         "Sweden",
@@ -74,9 +74,4 @@ export default new Vuex.Store({
   },
   actions: {},
   modules: {},
-  getters: {
-    getCountries() {
-      return this.$store.state.countries;
-    },
-  },
 });
