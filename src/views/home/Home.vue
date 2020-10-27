@@ -4,12 +4,12 @@
       class="card-content"
       elevation="11"
       outlined
-      v-for="country in countries"
+      v-for="(country, index) in countries"
       :key="country.name"
     >
-      <h3>{{ country.name }}</h3>
+      <h3 @click="getLeagues(country, index)">{{ country.country }}</h3>
       <div class="flag">
-        <img :src="country.flag" />
+        <img :src="country.flag" height="100px" width="100px" />
       </div>
     </v-card>
   </div>
@@ -26,7 +26,33 @@ export default Vue.extend({
         { name: "Tanzania", flag: "Tz" },
         { name: "Uganda", flag: "Ug" },
       ],
+      seasons: [],
     };
+  },
+  methods: {
+    getLeagues: function (country: any, index: number) {
+      this.$http
+        .get(`leagues/current/${country.country}`)
+        .then((response: any) => {
+          const data = response.data;
+          console.log("Result is ", response);
+        })
+        .catch((error: any) => {
+          console.error("Error", error);
+        });
+    },
+  },
+  mounted: function () {
+    this.$http
+      .get("countries")
+      .then((response: any) => {
+        const data = response.data;
+        console.log("Result is ", response);
+        this.countries = data.api.countries;
+      })
+      .catch((error: any) => {
+        console.error("Error", error);
+      });
   },
   components: {},
 });
@@ -47,10 +73,18 @@ export default Vue.extend({
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: beige;
     margin: 20px 20px;
     .flag {
       display: flex;
+      margin-top: 10px;
+    }
+    h3 {
       margin-top: 20px;
+    }
+    h3:hover {
+      cursor: pointer;
+      color: darkgray;
     }
   }
 }
