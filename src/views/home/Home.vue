@@ -60,33 +60,33 @@ export default Vue.extend({
   name: "Home",
   data: function () {
     return {
-      countries: [],
+      // countries: [],
       countryGroup: "",
       items: [
         {
           title: "Popular",
-          icon: "mdi-home",
+          icon: "mdi-account-group",
           click: (event: MouseEvent) => {
             this.countryGroup = "popular";
           },
         },
         {
           title: "African",
-          icon: "mdi-image",
+          icon: "mdi-alpha-a",
           click: (event: MouseEvent) => {
             this.countryGroup = "africa";
           },
         },
         {
           title: "Others",
-          icon: "mdi-help-box",
+          icon: "mdi-alpha-o",
           click: (event: MouseEvent) => {
             this.countryGroup = "other";
           },
         },
         {
           title: "All",
-          icon: "mdi-help-box",
+          icon: "mdi-ballot",
           click: (event: MouseEvent) => {
             this.countryGroup = "";
           },
@@ -97,6 +97,8 @@ export default Vue.extend({
   },
   computed: {
     ...mapState({
+      countries: (state: any) => state.countries,
+      countryRetrieved: (state: any) => state.countryRetrieved,
       selectedCountry: (state: any) => state.selectedCountry,
       requiredCountry: (state: any) => {
         return {
@@ -108,6 +110,7 @@ export default Vue.extend({
             ...state.lookups.africanCountry,
             ...state.lookups.otherCountry,
           ],
+          countries: [],
         };
       },
     }),
@@ -129,9 +132,10 @@ export default Vue.extend({
   },
 
   methods: {
-    ...mapMutations(["selectcountry", "selectLeague"]),
+    ...mapMutations(["selectcountry", "setcountries", "setLeagueRetrieval"]),
     getLeagues(country: any, index: number) {
       this.$store.commit("selectcountry", { country });
+      this.$store.commit("setLeagueRetrieval", { flag: false });
       this.$router.push("leagues");
       // this.$http
       //   .get(`leagues/current/${country.country}`)
@@ -145,16 +149,20 @@ export default Vue.extend({
     },
   },
   mounted: function () {
-    this.$http
-      .get("countries")
-      .then((response: any) => {
-        const data = response.data;
-        // console.log("Result is ", response);
-        this.countries = data.api.countries;
-      })
-      .catch((error: any) => {
-        console.error("Error", error);
-      });
+    if (!this.countryRetrieved) {
+      this.$http
+        .get("countries")
+        .then((response: any) => {
+          const data: any = response.data;
+          // console.log("Result is ", response);
+          const countries = data.api.countries;
+          this.$store.commit("setcountries", { countries });
+          // this.countries = data.api.countries;
+        })
+        .catch((error: any) => {
+          console.error("Error", error);
+        });
+    }
   },
   components: {},
 });

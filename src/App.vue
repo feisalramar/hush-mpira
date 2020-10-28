@@ -3,13 +3,13 @@
     <v-toolbar color="cyan" dark max-height="60px">
       <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
 
+      <v-btn icon @click="back">
+        <v-icon>mdi-arrow-left</v-icon>
+      </v-btn>
+
       <v-toolbar-title>Hush!Mpira</v-toolbar-title>
 
       <v-spacer></v-spacer>
-
-      <!-- <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn> -->
     </v-toolbar>
     <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
@@ -27,6 +27,22 @@
     </transition>
   </v-app>
 </template>
+
+<script lang="ts">
+import Vue from "vue";
+export default Vue.extend({
+  computed: {
+    isHome: function () {
+      return this.$router.currentRoute.path === "/";
+    },
+  },
+  methods: {
+    back: function () {
+      this.$router.back();
+    },
+  },
+});
+</script>>
 
 <style lang="scss">
 html {

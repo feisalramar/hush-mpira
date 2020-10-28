@@ -41,17 +41,32 @@ export default new Vuex.Store({
       ],
     },
     countries: [],
+    countryRetrieved: false,
+    leagueRetrieved: false,
     selectedCountry: null,
     leagues: [],
     selectedLeague: null,
     teams: [],
-    selectedTeams: null,
-    playes: [],
+    selectedTeam: null,
+    players: [],
     selectedPlayer: null,
+    standings: [],
+    topscorers: [],
+    fixtures: [],
   },
   mutations: {
+    setFixtures(state, payload) {
+      state.fixtures = payload.fixtures;
+    },
+    setTopScorers(state, payload) {
+      state.topscorers = payload.topscorers;
+    },
+    setStandings(state, payload) {
+      state.standings = payload.standings;
+    },
     setcountries(state, payload) {
       state.countries = payload.countries;
+      state.countryRetrieved = true;
     },
     selectcountry(state, payload) {
       state.selectedCountry = payload.country;
@@ -64,6 +79,10 @@ export default new Vuex.Store({
     },
     setleagues(state, payload) {
       state.leagues = payload.leagues;
+      state.leagueRetrieved = true;
+    },
+    setLeagueRetrieval(state, payload) {
+      state.leagueRetrieved = payload.flag;
     },
     setteams(state, payload) {
       state.teams = payload.teams;
