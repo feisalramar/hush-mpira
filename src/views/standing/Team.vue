@@ -58,7 +58,7 @@ export default Vue.extend({
         .then((response: any) => {
           const data = response.data;
           const players = data.api.players;
-          console.log(players);
+          // console.log(players);
           this.$store.commit("setplayers", { players });
         });
     }

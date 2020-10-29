@@ -42,7 +42,7 @@ export default Vue.extend({
     },
   },
 });
-</script>>
+</script>
 
 <style lang="scss">
 html {
