@@ -53,8 +53,16 @@ export default new Vuex.Store({
     standings: [],
     topscorers: [],
     fixtures: [],
+    lineup: null,
+    seasons: [],
   },
   mutations: {
+    setSeasons(state, payload) {
+      state.seasons = payload.seasons;
+    },
+    setLineup(state, payload) {
+      state.lineup = payload.lineup;
+    },
     setFixtures(state, payload) {
       state.fixtures = payload.fixtures;
     },
@@ -73,6 +81,9 @@ export default new Vuex.Store({
     },
     selectleague(state, payload) {
       state.selectedLeague = payload.league;
+    },
+    selectPlayer(state, payload) {
+      state.selectedPlayer = payload.player;
     },
     selectteam(state, payload) {
       state.selectedTeam = payload.team;

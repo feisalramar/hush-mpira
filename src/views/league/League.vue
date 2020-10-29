@@ -54,7 +54,7 @@ export default Vue.extend({
           const data = response.data;
           const leagues = data.api.leagues;
           // this.leagues = data.api.leagues;
-          leagues.map((league: any) => console.log(league.type));
+          // leagues.map((league: any) => console.log(league.type));
           this.$store.commit("setleagues", { leagues });
         })
         .catch((error: any) => {

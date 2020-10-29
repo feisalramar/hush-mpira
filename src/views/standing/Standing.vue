@@ -1,16 +1,24 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="standings"
-    :items-per-page="20"
-    class="elevation-4"
-  >
-    <template v-slot:item.logo="{ item }">
-      <v-avatar color="transparent" size="36">
-        <img :src="item.logo" />
-      </v-avatar>
-    </template>
-  </v-data-table>
+  <v-container>
+    <h1 style="text-align: left">League Standing</h1>
+    <v-data-table
+      :headers="headers"
+      :items="standings"
+      :items-per-page="20"
+      class="elevation-4"
+    >
+      <template v-slot:item.logo="{ item }">
+        <v-avatar
+          @click="selectTeam(item)"
+          color="transparent"
+          size="36"
+          class="link-logo"
+        >
+          <img :src="item.logo" />
+        </v-avatar>
+      </template>
+    </v-data-table>
+  </v-container>
 </template> 
 
 <script lang="ts">
@@ -44,7 +52,11 @@ export default Vue.extend({
     }),
   },
   methods: {
-    ...mapMutations(["setStadings"]),
+    ...mapMutations(["setStadings", "selectteam"]),
+    selectTeam: function (team: any) {
+      this.$store.commit("selectteam", { team });
+      this.$router.push("team");
+    },
   },
   mounted() {
     if (this.league != null) {
@@ -54,6 +66,7 @@ export default Vue.extend({
         .then((response: any) => {
           const data = response.data;
           const standings = data.api.standings;
+          // console.log(standings);
           this.$store.commit("setStandings", { standings: standings[0] });
         });
     }
@@ -62,4 +75,8 @@ export default Vue.extend({
 </script>
 
 <style>
+.link-logo:hover {
+  cursor: pointer;
+  background-color: gray;
+}
 </style>

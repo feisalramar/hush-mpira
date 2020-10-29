@@ -132,7 +132,12 @@ export default Vue.extend({
   },
 
   methods: {
-    ...mapMutations(["selectcountry", "setcountries", "setLeagueRetrieval"]),
+    ...mapMutations([
+      "setSeasons",
+      "selectcountry",
+      "setcountries",
+      "setLeagueRetrieval",
+    ]),
     getLeagues(country: any, index: number) {
       this.$store.commit("selectcountry", { country });
       this.$store.commit("setLeagueRetrieval", { flag: false });
@@ -163,6 +168,19 @@ export default Vue.extend({
           console.error("Error", error);
         });
     }
+
+    this.$http
+      .get("seasons")
+      .then((response: any) => {
+        const data: any = response.data;
+        // console.log("Result is ", response);
+        const seasons = data.api.seasons;
+        this.$store.commit("setSeasons", { seasons });
+        // this.countries = data.api.countries;
+      })
+      .catch((error: any) => {
+        console.error("Error", error);
+      });
   },
   components: {},
 });

@@ -22,7 +22,12 @@ const routes: Array<RouteConfig> = [
   {
     path: "/standing",
     name: "Standing",
-    component: () => import("../views/standing/Standing.vue"),
+    component: () => import("../views/standing/index.vue"),
+  },
+  {
+    path: "/team",
+    name: "Team",
+    component: () => import("../views/standing/Team.vue"),
   },
 ];
 
